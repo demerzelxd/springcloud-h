@@ -1,0 +1,12 @@
+server:
+  port: 8889
+spring:
+  application:
+    name: consulclient
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name} #指定注册到consul的服务名称 默认就是应用名
+#        register-health-check: false  # 关闭健康检查，不推荐

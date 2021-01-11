@@ -1,0 +1,14 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eurekaserver
+eureka:
+  client:
+    service-url:
+      defalutZone: http://localhost:${server.port}/eureka
+    fetch-registry: false  # 在启动时，不马上自己注册到自己上，否则会由于还没有初始化而报错
+    register-with-eureka: false  # 不作为客户端，仅仅充当注册中心这个服务端
+  server:
+#    enable-self-preservation: false  # 关闭自我保护，如果Server在一定时间（默认90秒）内没有接收到某个微服务实例的心跳，Server将会注销该实例，不进行保留。在生产环境下开启
+    eviction-interval-timer-in-ms: 3000  # server自身清理无效节点的时间间隔，默认60s
