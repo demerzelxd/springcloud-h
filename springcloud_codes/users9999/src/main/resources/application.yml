@@ -1,0 +1,17 @@
+server:
+    port: 9999
+spring:
+    application:
+        name: users
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+    #    registry-fetch-interval-seconds: 5  # client间隔多久去拉取服务注册信息,默认为30秒，通常用于网关服务
+    instance:
+        lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
+        lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
+# 在调用方的配置文件修改负载均衡策略（这里改为随机，可以在IRule按ctrl+H看到所有负载均衡策略实现）
+products:  # 要调用的服务名
+    ribbon:
+        NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
