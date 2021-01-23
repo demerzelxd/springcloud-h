@@ -71,6 +71,7 @@ public class UserController
 		// RestTemplate restTemplate = new RestTemplate();
 		// String url = "http://"+serviceInstance.getHost()+":"+serviceInstance.getPort()+"/product/findAll";
 		// Map msg = restTemplate.getForObject(url, Map.class);
+
 		// 第四种调用方式@LoadBalance（负载均衡，默认轮询），使用注入的方法获取RestTemplate，
 		// 并且url的host和port，统一用products，即服务名替代
 		Map msg = restTemplate.getForObject("http://products/product/findAll", Map.class);
