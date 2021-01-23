@@ -12,6 +12,24 @@ eureka:
         lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
         lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
 # 在调用方的配置文件修改负载均衡策略（这里改为随机，可以在IRule按ctrl+H看到所有负载均衡策略实现）
-products:  # 要调用的服务名
+products: # 要调用的服务名
     ribbon:
         NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#feign:
+#    client:
+#        config:
+#            products:
+#                connectTimeOut: 5000  # 配置指定服务器连接超时
+#                readTimeOut: 5000  # 配置指定服务器最大等待时长
+feign:
+    client:
+        config:
+            default:
+                connectTimeOut: 5000  # 配置全局服务器连接超时，也就是调用任何服务最多都会等5s
+                readTimeOut: 5000  # 配置全局服务器最大等待时长
+                loggerLevel: full  # 全局开启服务日志展示
+logging:
+    level:
+        cn:
+            me:
+                client: debug  # springboot只展示info日志，这里开启feign的debug级别的日志显示，包名写到cn.me.client，也就是ProductClient所在包

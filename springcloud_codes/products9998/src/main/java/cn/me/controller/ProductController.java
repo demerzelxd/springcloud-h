@@ -54,9 +54,20 @@ public class ProductController
 		return map;
 	}
 
+	// 默认openfeign在进行服务调用时，要求服务提供方在1s内返回结果，如果超时openfeign会直接报错
+	// 但往往业务逻辑复杂的时候会超过1s，所以要修改openfeign的超时时间
 	@PostMapping("/product/create")
 	public Map<String, Object> create(@RequestBody ProductDTO productDTO)
 	{
+		// 模拟超时，在服务提供方加入线程等待阻塞
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		Map<String, Object> map = new HashMap<>();
 		log.info("商品服务接收到的数据为：【{}】", productDTO);
 		map.put("status", true);
