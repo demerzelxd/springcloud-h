@@ -1,6 +1,7 @@
 package cn.me.controller;
 
 import cn.me.model.dto.ProductDTO;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +75,26 @@ public class ProductController
 		map.put("msg", "创建商品成功！当前端口" + port);
 		map.put("productDTO", productDTO);
 		return map;
+	}
+
+	// 在服务提供方进行hystrix设置
+	@GetMapping("/product/break")
+	// 在方法上写该注解，可以在改方法被熔断时给用户一个友好的返回
+	@HystrixCommand(fallbackMethod = "testFallback")
+	//默认的fallback，可以用来放在所有方法上
+	// @HystrixCommand(defaultFallback = "testFallback")
+	public String testHystrix(Integer id)
+	{
+		if (id < 0)
+		{
+			throw new RuntimeException("非法参数，id不能小于0");
+		}
+		return "访问成功，当前查询的id为" + id;
+	}
+
+	// 触发熔断时执行的fallback方法，最好跟熔断方法的参数一致
+	public String testFallback(Integer id)
+	{
+		return "当前传入的参数id：" + id + "，不是有效参数，触发熔断，快速返回";
 	}
 }

@@ -28,6 +28,8 @@ feign:
                 connectTimeOut: 5000  # 配置全局服务器连接超时，也就是调用任何服务最多都会等5s
                 readTimeOut: 5000  # 配置全局服务器最大等待时长
                 loggerLevel: full  # 全局开启服务日志展示
+    hystrix:
+        enabled: true  # 开启feign对hystrix的支持
 logging:
     level:
         cn:

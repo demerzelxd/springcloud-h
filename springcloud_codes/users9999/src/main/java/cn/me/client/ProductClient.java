@@ -1,5 +1,6 @@
 package cn.me.client;
 
+import cn.me.fallback.ProductClientFallback;
 import cn.me.model.dto.ProductDTO;
 import com.netflix.loadbalancer.IRule;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 // 声明当前接口是调用商品服务的openfeign组件
-@FeignClient("products")
+// 客户端feign+hystrix实现服务降级
+@FeignClient(value = "products", fallback = ProductClientFallback.class)
 public interface ProductClient
 {
 	// 查询所有商品信息
