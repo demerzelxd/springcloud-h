@@ -6,26 +6,26 @@ spring:
     cloud:
         gateway:
             routes:
-                - id: user_route  # 指定路由唯一标识
+                -   id: user_route  # 指定路由唯一标识
                     #                  uri: http://localhost:9999  # 指定路由服务地址
                     #                  根据服务名称实现负载均衡，lb为loadBalance，前提是要discovery:locator:enabled: true
-                  uri: lb://users  # 指定路由服务名称
+                    uri: lb://users  # 指定路由服务名称
                     #                  predicate为断言，请求转发之前会经过断言，之后才会经过filter过滤器
-                  predicates:
-                      - Path=/test/**  # 路由匹配规则
-                    #                      - After=2021-01-26T14:22:23.824+08:00[Asia/Shanghai]  # 在14:22之后才能访问users，常用于项目上线
-                    #                      - Cookie=username, dada  # 必须有指定键为name，值为dada的cookie才能访问
-                    #                      - Cookie=username, [A-Za-z0-9]+  # 必须有值符合正则表达式的cookie才能访问，如Aab8
-                    #                      - Header=X-Request-Id, \d+  # 请求头id全是数字
-                    #                      - Method=GET, POST
-                  filters:
+                    predicates:
+                        - Path=/test/**  # 路由匹配规则
+                        #                      - After=2021-01-26T14:22:23.824+08:00[Asia/Shanghai]  # 在14:22之后才能访问users，常用于项目上线
+                        #                      - Cookie=username, dada  # 必须有指定键为name，值为dada的cookie才能访问
+                        #                      - Cookie=username, [A-Za-z0-9]+  # 必须有值符合正则表达式的cookie才能访问，如Aab8
+                        #                      - Header=X-Request-Id, \d+  # 请求头id全是数字
+                        #                      - Method=GET, POST
+                #                  filters:
                 #                      - AddRequestParameter=productId, 2333  # 给经过网关的每个请求头增加参数
                 #                      - AddResponseHeader=X-Response-Red, Blue  # 给每个响应新增一个值为blue的响应头
-                - id: product_route  # 指定路由唯一标识
+                -   id: product_route  # 指定路由唯一标识
                     #                  uri: http://localhost:9998  # 指定路由服务地址
-                  uri: lb://products
-                  predicates:
-                      - Path=/product/**  # 路由匹配规则
+                    uri: lb://products
+                    predicates:
+                        - Path=/product/**  # 路由匹配规则
             #            开启根据服务名动态获取服务地址
             discovery:
                 locator:
