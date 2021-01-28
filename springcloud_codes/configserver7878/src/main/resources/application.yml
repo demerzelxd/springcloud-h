@@ -11,8 +11,15 @@ spring:
                     uri: https://github.com/demerzelxd/SpringCloudConfigs.git
                     #                    设置存储配置文件路径
                     basedir: C:\Study\springcloud-h\springcloud_codes\configserver7878\src\main\resources\config
-#                    设置默认分支
-#                    default-label: dev
+    #                    设置默认分支
+    #                    default-label: dev
+    rabbitmq:
+        host: 115.159.103.185
+        port: 5672
+        username: root
+        password: root
+        virtual-host: /lost
+        publisher-confirms: true
 eureka:
     client:
         service-url:
@@ -21,3 +28,10 @@ eureka:
     instance:
         lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
         lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
+# 开启所有web端点暴露，这样才能收到curl刷新的请求
+management:
+    endpoint:
+    endpoints:
+        web:
+            exposure:
+                include: "*"

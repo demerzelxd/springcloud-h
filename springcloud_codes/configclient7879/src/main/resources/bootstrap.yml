@@ -10,20 +10,21 @@ spring:
             label: master  # 指定拉取分支
             name: clients  # 指定拉取配置文件名称
             profile: dev  # 指定拉取配置文件的环境
+#            fail-fast: true  # 开启连接不到远程服务器立即报错
 #    虽然已经指定好了要去远程拉取，但是程序本身不会等到拉好，如果找不到端口，会立即报错
 # 引入预启动配置文件bootstrap，优先级高于application
 # 一旦用了远程配置，就要把application改成bootstrap
 # 优化： 远端配置更改之后，本地怎么才能通过不重启就更新：1、手动配置；2、自动配置
 # 手动配置： 向client发post请求明确要刷新配置 curl -X POST http://localhost:7880/actuator/refresh
-eureka:
-    client:
-        service-url:
-            defaultZone: http://localhost:8761/eureka
-    #        registry-fetch-interval-seconds: 5  # client间隔多久去拉取服务注册信息,默认为30秒，通常用于网关服务
-    instance:
-        lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
-        lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
-# 开启所有web端点暴露
+#eureka:
+#    client:
+#        service-url:
+#            defaultZone: http://localhost:8761/eureka
+#    #        registry-fetch-interval-seconds: 5  # client间隔多久去拉取服务注册信息,默认为30秒，通常用于网关服务
+#    instance:
+#        lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
+#        lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
+# 开启所有web端点暴露，这样才能收到curl刷新的请求
 management:
     endpoint:
     endpoints:
