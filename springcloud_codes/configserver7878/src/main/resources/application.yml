@@ -1,0 +1,23 @@
+server:
+    port: 7878
+spring:
+    application:
+        name: configserver
+    #        配置config服务器对应的git地址，默认会拉取master分支的配置
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://github.com/demerzelxd/SpringCloudConfigs.git
+                    #                    设置存储配置文件路径
+                    basedir: C:\Study\springcloud-h\springcloud_codes\configserver7878\src\main\resources\config
+#                    设置默认分支
+#                    default-label: dev
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+    #        registry-fetch-interval-seconds: 5  # client间隔多久去拉取服务注册信息,默认为30秒，通常用于网关服务
+    instance:
+        lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
+        lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s

@@ -33,7 +33,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered
 	@Override
 	public int getOrder()
 	{
-		// 数字越小filter越先执行
+		// 数字越小的filter越先执行
 		return -1;
 	}
 }
