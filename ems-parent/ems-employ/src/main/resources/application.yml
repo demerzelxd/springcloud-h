@@ -1,0 +1,13 @@
+server:
+    port: 8991
+spring:
+    application:
+        name: ems-employ
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+    #        registry-fetch-interval-seconds: 5  # client间隔多久去拉取服务注册信息,默认为30秒，通常用于网关服务
+    instance:
+        lease-expiration-duration-in-seconds: 10  # 表示server上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance，默认90s
+        lease-renewal-interval-in-seconds: 5  # 客户端多久向server发送一次心跳，默认30s
